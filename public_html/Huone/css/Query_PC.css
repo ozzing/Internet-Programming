@@ -1,0 +1,40 @@
+a {
+    color: black;
+    text-decoration: none;
+}
+
+header {
+    text-align: end;
+}
+
+article {
+    padding-top: 20vh;
+}
+
+.desc {
+    font-size: 10rem;
+    text-align: center;
+}
+
+.search-area {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+}
+
+.search-area .search-input {
+    width: 500px;
+    height: 50px;
+
+    margin-right: 10px;
+}
+
+.search-area .search-btn {
+    background: #ffff99;
+
+    border: none;
+    box-shadow: 0.3px 0.3px 0.3px;
+
+    cursor: pointer;
+}

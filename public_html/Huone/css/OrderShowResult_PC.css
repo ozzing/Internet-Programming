@@ -1,0 +1,25 @@
+a {
+    color: black;
+    text-decoration: none;
+}
+
+header {
+    text-align: end;
+}
+
+h3 {
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    text-align:center;
+}
+th{
+    border-bottom: 2px solid;
+    font-size: 15;
+}
+td{
+    text-align:center;
+    font-size:13;
+}

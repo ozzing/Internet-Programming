@@ -1,0 +1,87 @@
+<html>
+
+<head>
+    <title>쇼핑몰 검색 결과</title>
+    <meta charset="utf8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/OrderShowResult_Mobile.css">
+    <link rel="stylesheet" type="text/css" media="only screen and (min-width:769px)" href="css/OrderShowResult_PC.css">
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <a href="/~cse20191596/Huone/Query.html">
+            홈으로
+        </a>
+    </header>
+    <h3>구매 내역</h3>
+    <script type="text/javascript">
+        var searchResultRender = function (target, res) {
+            target.innerHTML = `
+                    <table border="1px">
+                        <thead>
+                        <tr>
+                            <th>품명</th>
+                            <th>받는 사람</th>
+                            <th>연락처</th>
+                            <th>이메일</th>
+                            <th>주소</th>
+                            <th>수량</th>
+                            <th>구매 일시</th>
+                        </tr>
+                        </thead>
+                        `;
+            for (var elem of res) {
+                target.innerHTML += `
+                        <tr>
+                            <td>${elem.name}</td>
+                            <td>${elem.people}</td>
+                            <td>${elem.phone}</td>
+                            <td>${elem.email}</td>
+                            <td>${elem.address}</td>
+                            <td>${elem.amount}</td>
+                            <td>${elem.order_date}</td>
+                        </tr>
+                `;
+            }
+            target.innerHTML += `</table>`;
+        }
+
+        window.onload = function () {
+            var urlParams = new URLSearchParams(window.location.search);
+            var searchKey = urlParams.get("q");
+
+            var resultDiv = document.getElementsByClassName("result")[0];
+
+            // GET DATA
+            $.ajax({
+                url: "http://cspro.sogang.ac.kr/~cse20191654/cgi-bin/Huone/OrderSearch.php",
+                async: true,
+                type: "POST",
+                data: {
+                    "password": searchKey,
+                },
+                dataType: "json",
+                success: function (res) {
+                    if (res.length === 0) {
+                        resultDiv.innerHTML += `
+                            <p>검색 결과가 존재하지 않습니다</p>
+                        `;
+                    }
+                    else {
+                        searchResultRender(resultDiv, res);
+                    }
+                },
+                error: function (res) {
+                    alert("오류가 발생했습니다.");
+                }
+            });
+        }
+    </script>
+
+    <table class="result"></table>
+
+</body>
+
+</html>

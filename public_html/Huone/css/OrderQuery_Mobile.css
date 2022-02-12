@@ -1,0 +1,35 @@
+a {
+    color: black;
+    text-decoration: none;
+}
+
+header {
+    text-align: end;
+}
+
+.desc {
+    text-align: center;
+}
+
+.search-area {
+    width: 100%;
+    padding-top: 20px;
+
+    display: flex;
+    justify-content: center;
+}
+
+.search-area .search-input {
+    width: 200px;
+
+    margin-right: 10px;
+}
+
+.search-area .search-btn {
+    background: #ffff99;
+
+    border: none;
+    box-shadow: 0.3px 0.3px 0.3px;
+
+    cursor: pointer;
+}

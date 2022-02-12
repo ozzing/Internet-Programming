@@ -1,0 +1,30 @@
+a {
+    color: black;
+    text-decoration: none;
+}
+
+header {
+    text-align: end;
+    width: 100%;
+    min-width: 1000;   
+}
+
+h3 {
+    text-align: center;
+    width: 100%;
+    min-width: 1000;
+}
+
+table {
+    width: 100%;
+    min-width: 1000;
+    text-align:center;
+}
+th{
+    border-bottom: 2px solid;
+    font-size: 15;
+}
+td{
+    text-align:center;
+    font-size:13;
+}

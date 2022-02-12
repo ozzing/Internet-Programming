@@ -1,0 +1,65 @@
+header {
+    text-align: center;
+}
+
+.main {
+    display: flex;
+
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.left {
+    margin: 10px;
+
+    display: flex;
+    flex-direction: column;
+
+    width: 100px;
+}
+
+.left .thumb {
+    height: 100px;
+    width: 100%;
+}
+
+.left .thumb img {
+    width: 100%;
+    height: 100%;
+}
+
+.left .description {
+    margin-top: 4px;
+    text-align: center;
+    width: 100%;
+}
+
+.left .amount {
+    margin-top: 4px;
+    text-align: center;
+    width: 100%;
+    color: red;
+}
+
+.data {
+    display: flex;
+    align-items: center;
+
+    margin-top: 10px;
+}
+
+.data .desc {
+    margin-right: 4px;
+    width: 100px;
+}
+
+.btn-area {
+    display: flex;
+    float: right;
+
+    margin-top: 20px;
+}
+
+.btn-area .submitBtn {
+    margin-right: 4px;
+}

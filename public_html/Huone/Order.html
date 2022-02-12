@@ -1,0 +1,134 @@
+<html>
+
+<head>
+    <title>주문 정보를 입력하세요</title>
+    <meta charset="utf8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <script src="//code.jquery.com/jquery-3.3.1.min.js">
+    </script>
+    <link rel="stylesheet" type="text/css" href="css/Order_Mobile.css">
+    <link rel="stylesheet" type="text/css" media="only screen and (min-width:769px)" href="css/Order_PC.css">
+    <script type="text/javascript">
+        window.onload = function () {
+            var urlParams = new URLSearchParams(window.location.search);
+            var itemNo = urlParams.get("itemNo");
+
+            // GET DATA
+            $.ajax({
+                url: "http://cspro.sogang.ac.kr/~cse20191654/cgi-bin/Huone/GetItemData.php",
+                async: true,
+                type: "POST",
+                data: {
+                    "id": itemNo,
+                },
+                dataType: "json",
+                success: function (res) {
+                    if (res.amount === 0) {
+                        alert("품절된 상품입니다.");
+                        history.back();
+                    }
+
+                    var itemInfoDiv = document.getElementsByClassName("left")[0];
+                    var idInput = document.getElementsByName("id")[0];
+                    var amountInput = document.getElementsByName("amount")[0];
+
+                    itemInfoDiv.innerHTML += `
+                        <div class="thumb">
+                            <img src="${res.img_src}" />
+                        </div>
+                        <div class="description">
+                            <div class="name">
+                                <span>${res.name}</span>
+                            </div>
+                            <div class="price">
+                                <span>${res.price}원</span>
+                            </div>
+                            <div class="amount">
+                                <span>잔여 수량 : ${res.amount}개</span>
+                            </div>
+                        </div>      
+                    `;
+
+                    amountInput.min = 1;
+                    amountInput.max = Number(res.amount);
+
+                    idInput.value = res.id;
+                },
+                error: function (res) {
+                    alert("올바르지 않은 접근입니다.");
+                    history.back();
+                }
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <header>
+        주문 정보를 입력해주세요
+    </header>
+    <article class="main">
+        <div class="left"></div>
+        <div class="right">
+            <form action="http://cspro.sogang.ac.kr/~cse20191654/cgi-bin/Huone/Order.php" method="post">
+                <input type="hidden" name="id">
+                <div class="data">
+                    <div class="desc">
+                        <span>받는 사람</span>
+                    </div>
+                    <div class="in">
+                        <input type="text" name="people" required maxlength="255">
+                    </div>
+                </div>
+                <div class="data">
+                    <div class="desc">
+                        <span>연락처</span>
+                    </div>
+                    <div class="in">
+                        <input type="text" name="phone" required maxlength="100">
+                    </div>
+                </div>
+                <div class="data">
+                    <div class="desc">
+                        <span>이메일</span>
+                    </div>
+                    <div class="in">
+                        <input type="text" name="email" required maxlength="255">
+                    </div>
+                </div>
+                <div class="data">
+                    <div class="desc">
+                        <span>주소</span>
+                    </div>
+                    <div class="in">
+                        <input type="text" name="address" required maxlength="500">
+                    </div>
+                </div>
+                <div class="data">
+                    <div class="desc">
+                        <span>비밀번호</span>
+                    </div>
+                    <div class="in">
+                        <input type="password" name="password" required maxlength="20">
+                    </div>
+                </div>
+                <div class="data">
+                    <div class="desc">
+                        <span>수량</span>
+                    </div>
+                    <div class="in">
+                        <input type="number" name="amount" value="1" required>
+                    </div>
+                </div>
+                <div class="btn-area">
+                    <input type="submit" name="submit" value="주문하기" class="submitBtn">
+                    <button onclick="history.back();">
+                        취소
+                    </button>
+                </div>
+            </form>
+        </div>
+    </article>
+</body>
+
+</html>

@@ -1,0 +1,83 @@
+<html>
+
+<head>
+    <title>Huone 쇼핑몰에 오신것을 환영합니다!</title>
+    <meta charset="utf8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/Query_Mobile.css">
+    <link rel="stylesheet" type="text/css" media="only screen and (min-width:769px)" href="css/Query_PC.css">
+    <script>
+        $(document).ready(function () {
+            // GET DATA
+            var searchKey = $("#searchInput").val();
+            var List = [];
+            $.ajax({
+                url: "http://cspro.sogang.ac.kr/~cse20191654/cgi-bin/Huone/Search.php",
+                async: true,
+                type: "POST",
+                data: {
+                    "name": searchKey,
+                },
+                dataType: "json",
+                success: function (res) {
+                    for (var elem of res) {
+                        List.push(elem.name);
+                    }
+                },
+                error: function (res) {
+                    alert("오류가 발생했습니다.");
+                }
+            });
+
+            // AUTO COMPLETE
+            $("#searchInput").autocomplete({
+                source: List,
+                focus: function (event, ui) {
+                    return false;
+                },
+                minLength: 1,
+                delay: 100,
+            });
+
+            document.getElementById("searchInput").addEventListener("keyup", function (e) {
+                if (e.key === "Enter") {
+                    search();
+                }
+            })
+        });
+
+        function search() {
+            var text = document.getElementsByClassName("search-input")[0].value;
+
+            if (text.length === 0) {
+                alert("검색어를 입력해주세요!");
+                return;
+            }
+
+            window.location.href = `/~cse20191596/Huone/ShowResult.html?q=${text}`;
+        }
+    </script>
+</head>
+
+<body>
+    <header>
+        <a href="/~cse20191596/Huone/OrderQuery.html">주문 내역 조회하기</a>
+    </header>
+    <article class="main">
+        <div class="desc">
+            Huone
+        </div>
+        <div class="search-area">
+            <input type="text" class="search-input" id="searchInput" autofocus>
+            <button onclick="search();" class="search-btn">
+                검색하기
+            </button>
+        </div>
+    </article>
+</body>
+
+</html>
